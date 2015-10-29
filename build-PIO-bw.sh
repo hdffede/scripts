@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 #   ___  __           _      __     __
 #  / _ )/ /_ _____   | | /| / /__ _/ /____ _______
 # / _  / / // / -_)  | |/ |/ / _ `/ __/ -_) __(_-<
@@ -12,26 +12,26 @@
 #####################################
 ##source /opt/modules/default/init/bash
 
-#$COMPILER = 'Default'
+#COMPILER="Default"
 COMPILER="Intel"
-#$COMPILER = 'PGI'
+#COMPILER="PGI"
 
 #####################################
 # MODULES
 #####################################
 module list
 # select module based on compiler preference
-if [$COMPILER -eq "Intel"]; then
+if (("$COMPILER" == "Intel")); then
   module swap PrgEnv-cray PrgEnv-intel
 else
-  if [$COMPILER -eq "PGI"]; then
+  if (("$COMPILER" == "PGI")); then
     module swap PrgEnv-cray PrgEnv-pgi
   else
     COMPILER="Default"
   fi
 fi
 
-echo "Compiler was set to ${COMPILER}"
+echo "Compiler environment was set to ${COMPILER}"
 
 module load torque
 module load git
