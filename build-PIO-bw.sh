@@ -25,7 +25,7 @@ export CXX="CC"
 #####################################
 #BUILD
 #####################################
-:'
+<<COMMENT
  cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
 -DPREFER_STATIC=TRUE \
 -DNetCDF_PATH=${NETCDF_DIR} \
@@ -39,4 +39,4 @@ export CXX="CC"
 ../PIO_source/
 
  make
-'
+<<COMMENT
