@@ -5,16 +5,44 @@
 #/____/_/\_,_/\__/   |__/|__/\_,_/\__/\__/_/ /___/
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# Build script to build hdf5 on Blue Waters
+# Build script to build PIO on Blue Waters
 
 source /opt/modules/default/init/bash
 #####################################
-#MODULES
+# CONFIG
 #####################################
-module list
+#
+#$COMPILER = "Default"
+$COMPILER = "Intel"
+#$COMPILER = "PGI"
 
 #####################################
-#ENV
+# MODULES
+#####################################
+module list
+# select module based on compiler preference
+if [$COMPILER eq 'Intel']; then
+  module swap PrgEnv-cray PrgEnv-intel
+else
+  if [$COMPILER eq 'PGI']; then
+    module swap PrgEnv-cray PrgEnv-pgi
+  else
+    $COMPILER = "Default"
+  fi
+fi
+
+echo "Compiler was set to ${COMPILER}"
+
+module load torque
+module load git
+module load cmake
+module load cray-hdf5-parallel/1.8.14
+module load cray-netcdf-hdf5parallel/4.3.3.1
+module load cray-parallel-netcdf/1.6.0
+
+module list
+#####################################
+# ENV
 #####################################
 
 export CC="cc"
@@ -23,7 +51,7 @@ export CXX="CC"
 
 
 #####################################
-#BUILD
+# BUILD
 #####################################
 <<COMMENT
  cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
