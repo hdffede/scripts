@@ -21,9 +21,10 @@ PIO_source="${HOME}/src/${PIO}"
 PIO_build="${HOME}/build/${PIO}"
 
 echo "#####################################"
-echo "PIO_source was set to ${PIO_source}"
 echo ""
+echo "PIO_source was set to ${PIO_source}"
 echo "PIO_build was set to ${PIO_build}"
+echo ""
 echo "#####################################"
 
 #COMPILER="Default"
@@ -33,7 +34,7 @@ COMPILER="Intel"
 #####################################
 # MODULES
 #####################################
-module list
+
 # select module based on compiler preference
 if (("$COMPILER" == "Intel")); then
   module swap PrgEnv-cray PrgEnv-intel
@@ -69,11 +70,13 @@ export CXX="CC"
 #####################################
 # BUILD
 #####################################
+# cd to PIO build directory
 cd ${PIO_build}
-echo "current build folder is ${PWD}"
 echo " "
-<<COMMENT
- cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
+echo "ParallelIO is being built in ${PWD}"
+echo " "
+
+cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
 -DPREFER_STATIC=TRUE \
 -DNetCDF_PATH=${NETCDF_DIR} \
 -DPnetCDF_PATH=${PARALLEL_NETCDF_DIR} \
@@ -83,7 +86,6 @@ echo " "
 -DMPI_C_LIBRARIES=${MPICH_DIR}/lib/libmpich.a \
 -DMPI_Fortran_LIBRARIES=${MPICH_DIR}/lib/libmpichf90.a \
 -DCMAKE_SYSTEM_NAME=Catamount \
-../${PIO_source}/
+${PIO_source}/
 
  make
-<<COMMENT
