@@ -6,11 +6,25 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Build script to build PIO on Blue Waters
+# Run script in build directory
 
 #####################################
 # CONFIG
 #####################################
 ##source /opt/modules/default/init/bash
+
+# PIO as ParallelIO
+PIO="ParallelIO"
+
+# Assume two working directories: source and build
+PIO_source="${HOME}/src/${PIO}"
+PIO_build="${HOME}/build/${PIO}"
+
+echo "#####################################"
+echo "PIO_source was set to ${PIO_source}"
+echo ""
+echo "PIO_build was set to ${PIO_build}"
+echo "#####################################"
 
 #COMPILER="Default"
 COMPILER="Intel"
@@ -31,7 +45,9 @@ else
   fi
 fi
 
+echo "#####################################"
 echo "Compiler environment was set to ${COMPILER}"
+echo "#####################################"
 
 module load torque
 module load git
@@ -64,7 +80,7 @@ export CXX="CC"
 -DMPI_C_LIBRARIES=${MPICH_DIR}/lib/libmpich.a \
 -DMPI_Fortran_LIBRARIES=${MPICH_DIR}/lib/libmpichf90.a \
 -DCMAKE_SYSTEM_NAME=Catamount \
-../PIO_source/
+../${PIO_source}/
 
  make
 <<COMMENT
