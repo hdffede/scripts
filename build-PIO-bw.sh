@@ -69,6 +69,9 @@ export CXX="CC"
 #####################################
 # BUILD
 #####################################
+cd ${PIO_build}
+echo "current build folder is ${CWD}"
+echo " "
 <<COMMENT
  cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
 -DPREFER_STATIC=TRUE \
