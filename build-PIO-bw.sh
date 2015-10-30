@@ -70,7 +70,7 @@ export CXX="CC"
 # BUILD
 #####################################
 cd ${PIO_build}
-echo "current build folder is ${CWD}"
+echo "current build folder is ${PWD}"
 echo " "
 <<COMMENT
  cmake -DCMAKE_VERBOSE_MAKEFILE=TRUE \
